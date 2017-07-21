@@ -1,1 +1,22 @@
-{}
+{
+  "name": "liri",
+  "description": "",
+  "version": "1.0.0",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdiViklas/liri.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbdiViklas/liri/issues"
+  },
+  "homepage": "https://github.com/AbdiViklas/liri#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}

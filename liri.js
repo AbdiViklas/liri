@@ -4,8 +4,6 @@ var request = require("request");
 var fs = require("fs");
 var twitter = require("twitter");
 
-console.log("process.argv:", process.argv);
-
 var command = process.argv[2];
 var input = "";
 for (var i = 3; i < process.argv.length; i++) {
@@ -36,7 +34,16 @@ function assignAction(command, input) {
 }
 
 function twitterFunc() {
-  
+  var client = new twitter(twitterKeys);
+  client.get("statuses/user_timeline", function(err, tweets){
+    if (err) {
+      console.log("Twitter error:", err);
+    }
+    for (var i = 0; i < tweets.length; i++) {
+      var tweet = tweets[i];
+      console.log(tweet.text);
+    }
+  });
 }
 
 function spotify(searchTerm) {
@@ -48,8 +55,6 @@ function omdb(searchTerm) {
     searchTerm = "mr. nobody";
   }
   searchTerm = searchTerm.replace(/ /g, "%20");
-  console.log("http://www.omdbapi.com/?apikey=40e9cece&t=" + searchTerm);
-  // n.b. the response body will probably be a string and need JSON.parse to be acessable as an object
   request("http://www.omdbapi.com/?apikey=40e9cece&t=" + searchTerm, function(err, response, body){
     var bodyObj = JSON.parse(body);
     var imdbRating, rtRating;

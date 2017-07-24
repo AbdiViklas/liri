@@ -67,17 +67,12 @@ function spotifyFunc(searchTerm) {
     }
     var element = data.tracks.items[0];
     var output = {
-      artist: element.artists[0].name,
-      title: element.name,
-      preview_url: element.preview_url,
-      album: element.album.name
+      "Artist(s)": element.artists[0].name,
+      "Title": element.name,
+      "Preview URL": element.preview_url,
+      "Album": element.album.name
     }
-    console.log(`
-      Artist(s): ${output.artist}
-      Title: ${output.title}
-      Preview URL: ${output.preview_url}
-      Album: ${output.album}
-    `);
+    console.log(JSON.stringify(output, null, 2));
     debugger;
     fs.appendFile("log.txt", "Spotify result:\n" + JSON.stringify(output, null, 2) + divider);
   });
@@ -101,25 +96,16 @@ function omdb(searchTerm) {
       }
     }
     var output = {
-      title: bodyObj.Title,
-      year: bodyObj.Year,
-      imdb: imdbRating,
-      rt: rtRating,
-      country: bodyObj.Country,
-      language: bodyObj.Language,
-      plot: bodyObj.Plot,
-      actors: bodyObj.Actors
+      "Title": bodyObj.Title,
+      "Year": bodyObj.Year,
+      "IMDB rating": imdbRating,
+      "Rotten Tomatoes rating": rtRating,
+      "Produced in": bodyObj.Country,
+      "Language": bodyObj.Language,
+      "Plot": bodyObj.Plot,
+      "Actors": bodyObj.Actors
     }
-    console.log(`
-      Title: ${output.title}
-      Year: ${output.year}
-      IMDB rating: ${output.imdb}
-      Rotten Tomatoes rating: ${output.rt}
-      Produced in: ${output.country}
-      Language: ${output.language}
-      Plot: ${output.plot}
-      Actors: ${output.actors}
-    `);
+    console.log(JSON.stringify(output, null, 2));
     fs.appendFile("log.txt", "OMDB result:\n" + JSON.stringify(output, null, 2) + divider);
   });
 }

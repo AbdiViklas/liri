@@ -32,3 +32,23 @@ Spotify result:
   "album": "The Hits--Chapter One"
 }
 -----------
+Spotify result:
+{
+  "Artist(s)": "Kilo",
+  "Title": "Mmbop",
+  "Preview URL": "https://p.scdn.co/mp3-preview/00e5d8111445cc23eb6af91a548d3b7e15bb3c69?cid=8f68fd4f087942b7a1f3d680a5a45487",
+  "Album": "Mmbop"
+}
+-----------
+OMDB result:
+{
+  "Title": "Deep Impact",
+  "Year": "1998",
+  "IMDB rating": "6.1/10",
+  "Rotten Tomatoes rating": "48%",
+  "Produced in": "USA",
+  "Language": "English",
+  "Plot": "Unless a comet can be destroyed before colliding with Earth, only those allowed into shelters will survive. Which people will survive?",
+  "Actors": "Robert Duvall, Téa Leoni, Elijah Wood, Vanessa Redgrave"
+}
+-----------

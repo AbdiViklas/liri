@@ -1,8 +1,10 @@
 var keys = require("./keys.js");
 var twitterKeys = keys.twitterKeys;
+var spotifyKeys = keys.spotifyKeys;
 var request = require("request");
 var fs = require("fs");
 var twitter = require("twitter");
+var spotify = require("node-spotify-api");
 
 var command = process.argv[2];
 var input = "";
@@ -19,7 +21,7 @@ function assignAction(command, input) {
       twitterFunc();
       break;
     case "spotify-this-song":
-      spotify(input);
+      spotifyFunc(input);
       break;
     case "movie-this":
       omdb(input);
@@ -35,7 +37,7 @@ function assignAction(command, input) {
 
 function twitterFunc() {
   var client = new twitter(twitterKeys);
-  client.get("statuses/user_timeline", function(err, tweets){
+  client.get("statuses/user_timeline", function (err, tweets) {
     if (err) {
       console.log("Twitter error:", err);
     }
@@ -46,16 +48,37 @@ function twitterFunc() {
   });
 }
 
-function spotify(searchTerm) {
-  
+function spotifyFunc(searchTerm) {
+  if (!searchTerm) {
+    console.log("You didn't give me a song to search for, so I'll search for 'The Sign.' You know, by Ace of Base.");
+    searchTerm = "the sign";
+  }
+  var spotifySearch = new spotify(spotifyKeys);
+  spotifySearch.search({
+    type: "track",
+    query: searchTerm
+  }, function (err, data) {
+    if (err) {
+      return console.log('Spotify error: ' + err);
+    }
+    var output = JSON.stringify(data);
+    var element = data.tracks.items[0];
+    console.log(`
+      Artist(s): ${element.artists[0].name}
+      Title: ${element.name}
+      Preview URL: ${element.preview_url}
+      Album: ${element.album.name}
+    `);
+  });
 }
 
 function omdb(searchTerm) {
   if (!searchTerm) {
+    console.log("You didn't give me a movie to search for, so I'll search for 'Mr. Nobody.'");
     searchTerm = "mr. nobody";
   }
   searchTerm = searchTerm.replace(/ /g, "%20");
-  request("http://www.omdbapi.com/?apikey=40e9cece&t=" + searchTerm, function(err, response, body){
+  request("http://www.omdbapi.com/?apikey=40e9cece&t=" + searchTerm, function (err, response, body) {
     var bodyObj = JSON.parse(body);
     var imdbRating, rtRating;
     for (var i = 0; i < bodyObj.Ratings.length; i++) {
@@ -80,7 +103,7 @@ function omdb(searchTerm) {
 }
 
 function doWhat() {
-  fs.readFile("random.txt", "utf8", function(err, data){
+  fs.readFile("random.txt", "utf8", function (err, data) {
     if (err) {
       console.log("Error:", err);
     }

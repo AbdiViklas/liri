@@ -61,7 +61,6 @@ function spotifyFunc(searchTerm) {
     if (err) {
       return console.log('Spotify error: ' + err);
     }
-    var output = JSON.stringify(data);
     var element = data.tracks.items[0];
     console.log(`
       Artist(s): ${element.artists[0].name}

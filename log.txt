@@ -1,0 +1,34 @@
+Twitter result:
+This is my third tweet.
+This is my second tweet!
+This is my first tweet!
+
+-----------
+Spotify result:
+{
+  "artist": "Simple Plan",
+  "title": "Singing In The Rain",
+  "preview_url": "https://p.scdn.co/mp3-preview/bd9cfcefa26087dfbae392656114bf5ac5eedc86?cid=8f68fd4f087942b7a1f3d680a5a45487",
+  "album": "Singing In The Rain"
+}
+-----------
+OMDB result:
+{
+  "title": "The Princess Bride",
+  "year": "1987",
+  "imdb": "8.1/10",
+  "rt": "97%",
+  "country": "USA",
+  "language": "English",
+  "plot": "While home sick in bed, a young boy's grandfather reads him a story called The Princess Bride.",
+  "actors": "Cary Elwes, Mandy Patinkin, Chris Sarandon, Christopher Guest"
+}
+-----------
+Spotify result:
+{
+  "artist": "Backstreet Boys",
+  "title": "I Want It That Way",
+  "preview_url": "https://p.scdn.co/mp3-preview/e72a05dc3f69c891e3390c3ceaa77fad02f6b5f6?cid=8f68fd4f087942b7a1f3d680a5a45487",
+  "album": "The Hits--Chapter One"
+}
+-----------

@@ -5,6 +5,8 @@ var request = require("request");
 var fs = require("fs");
 var twitter = require("twitter");
 var spotify = require("node-spotify-api");
+var divider = "\n-----------\n"
+
 
 var command = process.argv[2];
 var input = "";
@@ -41,10 +43,12 @@ function twitterFunc() {
     if (err) {
       console.log("Twitter error:", err);
     }
+    var tweetString = "";
     for (var i = 0; i < tweets.length; i++) {
-      var tweet = tweets[i];
-      console.log(tweet.text);
+      tweetString += tweets[i].text + "\n";
     }
+    console.log(tweetString);
+    fs.appendFile("log.txt", "Twitter result:\n" + tweetString + divider);
   });
 }
 
@@ -62,12 +66,20 @@ function spotifyFunc(searchTerm) {
       return console.log('Spotify error: ' + err);
     }
     var element = data.tracks.items[0];
+    var output = {
+      artist: element.artists[0].name,
+      title: element.name,
+      preview_url: element.preview_url,
+      album: element.album.name
+    }
     console.log(`
-      Artist(s): ${element.artists[0].name}
-      Title: ${element.name}
-      Preview URL: ${element.preview_url}
-      Album: ${element.album.name}
+      Artist(s): ${output.artist}
+      Title: ${output.title}
+      Preview URL: ${output.preview_url}
+      Album: ${output.album}
     `);
+    debugger;
+    fs.appendFile("log.txt", "Spotify result:\n" + JSON.stringify(output, null, 2) + divider);
   });
 }
 
@@ -88,16 +100,27 @@ function omdb(searchTerm) {
         rtRating = element.Value;
       }
     }
+    var output = {
+      title: bodyObj.Title,
+      year: bodyObj.Year,
+      imdb: imdbRating,
+      rt: rtRating,
+      country: bodyObj.Country,
+      language: bodyObj.Language,
+      plot: bodyObj.Plot,
+      actors: bodyObj.Actors
+    }
     console.log(`
-      Title: ${bodyObj.Title}
-      Year: ${bodyObj.Year}
-      IMDB rating: ${imdbRating}
-      Rotten Tomatoes rating: ${rtRating}
-      Produced in: ${bodyObj.Country}
-      Language: ${bodyObj.Language}
-      Plot: ${bodyObj.Plot}
-      Actors: ${bodyObj.Actors}
+      Title: ${output.title}
+      Year: ${output.year}
+      IMDB rating: ${output.imdb}
+      Rotten Tomatoes rating: ${output.rt}
+      Produced in: ${output.country}
+      Language: ${output.language}
+      Plot: ${output.plot}
+      Actors: ${output.actors}
     `);
+    fs.appendFile("log.txt", "OMDB result:\n" + JSON.stringify(output, null, 2) + divider);
   });
 }
 
